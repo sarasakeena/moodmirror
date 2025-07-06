@@ -1,0 +1,132 @@
+/* MoodMirror soft theme */
+
+body {
+  background: #fef6fb;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease-in-out;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #ff5e9c;
+  margin-bottom: 10px;
+}
+
+p.description {
+  color: #777;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+textarea {
+  width: 90%;
+  height: 150px;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  background: #fff0f8;
+  transition: all 0.2s ease-in-out;
+}
+
+textarea:focus {
+  border-color: #ff9fc9;
+  background-color: #fff7fb;
+}
+
+button {
+  background: linear-gradient(135deg, #ff92b3, #ffc1d3);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #ff78a5, #ffb7cc);
+}
+
+.result {
+  margin-top: 30px;
+  font-size: 1.4rem;
+  color: #444;
+}
+
+.quote {
+  margin-top: 15px;
+  font-style: italic;
+  color: #777;
+}
+
+/* Journal Entry */
+.journal-entry {
+  background: #fff9fc;
+  border: 1px solid #ffe1eb;
+  border-left: 6px solid #ffaad0;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(255, 170, 208, 0.1);
+}
+
+.journal-entry h4 {
+  margin: 0;
+  color: #d36b94;
+}
+
+.journal-entry p {
+  margin: 5px 0;
+  color: #555;
+}
+
+footer {
+  margin-top: 40px;
+  color: #bbb;
+  font-size: 0.9rem;
+}
+.heart-animate {
+  display: inline-block;
+  animation: jump 1s infinite ease-in-out;
+  transform-origin: bottom;
+  font-size: 2.5rem;
+  color: #ff69b4; /* Pink */
+}
+
+@keyframes jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.2);
+  }
+}
+.affirmation-box {
+  margin-top: 20px;
+  font-size: 1.1em;
+  background: linear-gradient(to right, #ffdde1, #fcc2d7);
+  padding: 12px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(255, 192, 203, 0.2);
+  color: #5e2750;
+  font-weight: 500;
+}

@@ -1,0 +1,6 @@
+fastapi
+fastmcp
+uvicorn
+jinja2
+transformers
+torch

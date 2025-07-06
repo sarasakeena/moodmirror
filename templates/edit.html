@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Entry</title></head>
+<link rel="stylesheet" href="/static/styles.css">
+<body>
+  <h1>Edit Your Mood Entry</h1>
+  <form action="/update" method="post">
+    <input type="hidden" name="timestamp" value="{{ entry.timestamp }}">
+    <input type="hidden" name="mood" value="{{ entry.mood }}">
+    <input type="hidden" name="user_input" value="{{ entry.input }}">
+    <textarea name="entry" rows="6" cols="50">{{ entry.journal }}</textarea><br/>
+    <button type="submit">💾 Save</button>
+  </form>
+</body>
+</html>

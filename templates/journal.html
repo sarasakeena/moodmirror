@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>📔 Mood Journal</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fff1f5, #f0f4ff);
+      color: #333;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff6b81;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    #chartContainer {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+
+    form {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="date"] {
+      padding: 10px;
+      border: 1px solid #ffbfd4;
+      border-radius: 10px;
+      font-size: 1em;
+      background-color: #fff9fb;
+    }
+
+    button {
+      background-color: #ff82a9;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff6b81;
+    }
+
+    .entry {
+      background: #fff;
+      border-left: 6px solid #ffa4ba;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      border-radius: 14px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .mood {
+      font-weight: bold;
+      color: #ff4081;
+      font-size: 1.1em;
+    }
+
+    .timestamp {
+      font-size: 0.85em;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .no-entry {
+      text-align: center;
+      color: #aaa;
+      font-size: 1.1em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Mood Journal</h1>
+
+  <!-- Chart at the Top -->
+  <div id="chartContainer">
+    <h2 style="text-align:center; color:#ff6b81;">📊 Mood Overview</h2>
+    <canvas id="moodChart" width="400" height="200"></canvas>
+  </div>
+
+  <!-- Date Filter -->
+  <form method="get" action="/journal">
+    <input type="date" name="date" value="{{ selected_date or '' }}">
+    <button type="submit">🔍 Filter</button>
+  </form>
+
+  <!-- Journal Entries -->
+  {% if entries %}
+    {% for entry in entries %}
+      <div class="entry">
+        <p class="timestamp">🕒 {{ entry.timestamp.split("T")[0] }} at {{ entry.timestamp.split("T")[1].split(".")[0] }}</p>
+        <p><span class="mood">🧠 Mood:</span> {{ entry.mood }}</p>
+        <p><strong>📝 You wrote:</strong> {{ entry.input }}</p>
+        <p><strong>💬 Reflection:</strong> {{ entry.journal }}</p>
+        <form action="/delete" method="post" style="display:inline;">
+          <input type="hidden" name="timestamp" value="{{ entry.timestamp }}">
+          <button type="submit">🗑 Delete</button>
+        </form>
+        <form action="/edit" method="get" style="display:inline;">
+          <input type="hidden" name="timestamp" value="{{ entry.timestamp }}">
+          <button type="submit" style="background:#ffc107; color:black;">✏️ Edit</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-entry">No entries found for this date. Try another one! 🌸</p>
+  {% endif %}
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const moodData = {{ mood_data | tojson | safe }};
+    const ctx = document.getElementById('moodChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(moodData),
+        datasets: [{
+          label: 'Mood Count',
+          data: Object.values(moodData),
+          backgroundColor: ['#ff9a9e', '#a1c4fd', '#c2e9fb'],
+          borderRadius: 10
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

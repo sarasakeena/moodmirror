@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MoodMirror</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body class="light">
+  <div class="container">
+    <h1>🌷MoodMirror</h1>
+    <p class="tagline">How do you feel today?</p>
+    
+    <form action="/analyze" method="post">
+      <textarea name="user_input" placeholder="Type your thoughts here..."></textarea>
+      <button type="submit">Analyze Mood</button>
+    </form>
+
+    
+  </div>
+
+  <script>
+    const toggle = document.getElementById("toggleTheme");
+    toggle.addEventListener("change", () => {
+      document.body.classList.toggle("dark");
+    });
+  </script>
+</body>
+</html>
