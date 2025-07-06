@@ -10,7 +10,7 @@ from fastapi import Query
 from fastapi.responses import RedirectResponse
 import random
 from collections import defaultdict
-
+import os
 
 
 
@@ -38,6 +38,11 @@ sentiment_model = pipeline("sentiment-analysis")
 templates = Jinja2Templates(directory="templates")
 
 JOURNAL_FILE = "journal.json"
+
+HF_API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
+HF_API_KEY = os.getenv("HF_API_KEY")  # Set this on Render
+
+headers = {"Authorization": f"Bearer {HF_API_KEY}"}
 
 # Ensure journal file exists
 try:
